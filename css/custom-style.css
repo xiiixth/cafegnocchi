@@ -1,0 +1,30 @@
+body {
+    background-size: cover;
+    background-position: center;
+    background-color: #f7f7f7;
+  }
+  
+  .top_panel_title {
+    background-image: url('assets/top_bg_1.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    padding: 20px;
+    color: white;
+    text-align: center;
+  }
+  
+  .top_panel_title .content_wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .top_panel_title .page_title {
+    font-size: 36px;
+    font-weight: bold;
+  }
+  
+  /* Add your additional styling for different sections here */
+  /* For example, style for navigation, footer, social icons, etc. */
+  

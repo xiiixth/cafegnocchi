@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Receipt</title>
+  <style>
+    /* Reset default margin and padding */
+body, h1, h2, p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Apply receipt font */
+body {
+  font-family: 'ReceiptFont', Arial, sans-serif; /* Replace 'ReceiptFont' with the actual name of your receipt font */
+}
+
+/* Style for the receipt container */
+.receipt {
+  width: 300px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Style for the header section */
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.header p {
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+
+/* Style for the details section */
+.details {
+  border-top: 1px dashed #999;
+  padding-top: 10px;
+}
+
+.details h2 {
+  margin-bottom: 10px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="receipt">
+    <div class="header">
+      <h1>Company Name</h1>
+      <p>123 Main Street, City, State, ZIP</p>
+      <p>Contact: (123) 456-7890</p>
+    </div>
+    <div class="details">
+      <h2>Receipt</h2>
+      <p><strong>Product:</strong> Item 1</p>
+      <p><strong>Price:</strong> $10.00</p>
+      <p><strong>Quantity:</strong> 2</p>
+      <p><strong>Total:</strong> $20.00</p>
+      <hr>
+      <!-- Add more products here -->
+    </div>
+    <div class="footer">
+      <hr>
+      <p><strong>Total Amount:</strong> $60.50</p>
+      <p><strong>Date:</strong> January 1, 2023</p>
+      <p><strong>Payment Method:</strong> Cash</p>
+    </div>
+  </div>
+</body>
+</html>

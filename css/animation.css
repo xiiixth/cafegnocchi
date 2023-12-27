@@ -1,0 +1,100 @@
+@keyframes slideIn {
+    from {
+      transform: translateY(-50%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .heading-jumbo,
+  .paragraph-bigger,
+  .button {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  .charm-of-italy {
+    animation: slideIn 1s ease forwards;
+  }
+  
+  .enhance-cafe-charm {
+    animation: fadeIn 1s ease forwards;
+  }
+  
+  .learn-more {
+    opacity: 0;
+    transition-delay: 0.5s;
+  }
+  
+  .intro-content:hover .learn-more {
+    opacity: 1;
+  }
+  
+@keyframes fadeInText {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .motto-wrap .animate-fade-in {
+    animation: fadeInText 1s ease forwards;
+    font-family: 'Playfair Display', serif;
+  }
+
+@keyframes fadeInContent {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .home-content-wrap.animate-fade-in {
+    animation: fadeInContent 1s ease forwards;
+  }
+
+.alternate-logo {
+    display: none;
+  }
+  
+  .fixed-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+.scroll-background {
+    background-color: white;
+    color: white; 
+    
+  }
+  
+  .product {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+
+  .product:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #166C1B; 
+  }
+
+  
+  
+  

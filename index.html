@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafe Gnocchi - Login</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animation.css">
+  <style>
+    .login-section h2,
+    .login-section p {
+      font-family: "Playfair Display";
+    }
+    .navigation {
+      background-color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: padding 0.3s ease, background-color 0.3s ease;
+    }
+    .navigation.scrolled {
+      padding: 30px 0; 
+      background-color: #166C1B; 
+    }
+    .navigation.scrolled a{
+      color: rgba(255, 255, 255, 0.9);
+    }
+    .navigation.scrolled a:hover {
+      color: #ff9900; 
+      transition: color 1.0s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="navigation w-nav" id="navbar">
+    <div class="navigation-wrap">
+      <a href="#" aria-current="page" class="logo-link w-nav-brand w--current">
+        <img src="assets/logo.png" width="50" height="auto "alt="Original Logo" class="logo-image original-logo">
+        <img src="assets/alternative-logo.png" width="130" alt="Alternate Logo" class="logo-image alternate-logo">
+      </a>
+      <div class="menu">
+        <nav role="navigation" class="navigation-items w-nav-menu">
+          <a href="#" class="navigation-item w-nav-link">Home</a>
+          <a href="#" class="navigation-item w-nav-link">About Us</a>
+          <a href="#" class="navigation-item w-nav-link">Products</a>
+          <a href="#" class="navigation-item w-nav-link">News</a>
+          <a href="#" class="navigation-item w-nav-link">Partners</a>
+          <a href="#" class="navigation-item w-nav-link">User Profile</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <br><br><br>
+  <div class="login-section">
+    <h2 style="text-align: center;">Welcome to Cafe Gnocchi</h2>
+    <p style="text-align: center;">Please log in to access your account.</p>
+    <p style="text-align: center;"><i>(for demo purposes)</i></p>
+    <p style="text-align: center;">username: <i>user</i> password: <i>password</i></p>
+    
+    <form id="loginForm" onsubmit="validateLogin(event)">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required><br><br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br><br>
+      <input type="submit" value="Login">
+    </form>
+  </div>
+
+  <script src="js/login.js"></script>
+  
+</body>
+</html>

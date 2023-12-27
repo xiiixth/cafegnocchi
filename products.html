@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafe Gnocchi - Products</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animation.css">
+  <style>
+
+.navigation {
+      background-color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: padding 0.3s ease, background-color 0.3s ease;
+    }
+    .navigation.scrolled {
+      padding: 30px 0; 
+      background-color: #166C1B; 
+    }
+    .navigation.scrolled a{
+      color: rgba(255, 255, 255, 0.9);
+    }
+    .navigation.scrolled a:hover {
+      color: #ff9900; 
+      transition: color 1.0s ease;
+    }
+
+  @import url('https://fonts.googleapis.com/css2?family=Fairplay+Display&display=swap');
+    /* Define a grid for the product section */
+  .products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid with minimum width of 200px */
+    gap: 20px;
+  }
+
+  /* Styles for the product card */
+  .product {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .product img {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .product h2 {
+    font-size: 20px;
+    margin-top: 10px;
+  }
+
+  .product p {
+    margin-bottom: 10px;
+  }
+
+  .product-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+
+  .product-buttons button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  /* Media query for responsiveness */
+  @media screen and (max-width: 768px) {
+    .products {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust the grid for smaller screens */
+    }
+
+    .product img {
+      width: 80px;
+    }
+
+    .product h2 {
+      font-size: 18px;
+    }
+
+    .product p {
+      font-size: 14px;
+    }
+
+    .product-buttons button {
+      padding: 6px 12px;
+    }
+  }
+
+  .payment-details {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .payment-details h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  .payment-method-select, .input-field, .payment-button {
+    margin-bottom: 15px;
+    width: calc(100% - 20px);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  .payment-button {
+  width: 600px; /* Set the width to match the cart and payment details sections */
+  padding: 10px;
+  margin: 10px auto;
+  border: none;
+  border-radius: 4px;
+  background-color: #000000;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: block; /* Ensure the button is a block-level element */
+  text-align: center; /* Center the text content */
+}
+
+.payment-button:hover {
+  background-color: #45a049;
+}
+  /* Styles for the cart */
+  #cart {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto; /* Set margins to 'auto' to horizontally center */
+    max-width: 600px; /* Adjust the max-width based on your preference */
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  #cart h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  #cart p {
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #cart strong {
+    font-weight: bold;
+  }
+
+  /* Additional styles for the remove button */
+  #cart button {
+    background-color: black;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    margin-left: 10px;
+    transition: background-color 0.3s ease; /* Adding transition effect */
+    margin-left: auto;
+  }
+
+  #cart button:hover {
+    background-color: #333; /* Change background color on hover */
+  }
+  
+  /* Clearfix to ensure proper alignment */
+  .clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  #cart,
+.payment-details {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 600px; /* Set width for both cart and payment details sections */
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.empty-cart-message{
+  display: none; /* Initially hidden */
+  text-align: center;
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-family: 'Fairplay Display', sans-serif;
+}
+  
+  </style>
+</head>
+<body>
+  <div class="navigation w-nav" id="navbar">
+    <div class="navigation-wrap">
+      <a href="home.html" aria-current="page" class="logo-link w-nav-brand w--current">
+        <img src="assets/logo.png" width="50" height="auto "alt="Original Logo" class="logo-image original-logo">
+        <img src="assets/alternative-logo.png" width="130" alt="Alternate Logo" class="logo-image alternate-logo">
+      </a>
+      <div class="menu">
+        <nav role="navigation" class="navigation-items w-nav-menu">
+          <a href="home.html" class="navigation-item w-nav-link">Home</a>
+          <a href="about.html" class="navigation-item w-nav-link">About Us</a>
+          <a href="products.html" class="navigation-item w-nav-link" id="productsLink">Products</a>
+          <a href="news.html" class="navigation-item w-nav-link">News</a>
+          <a href="partners.html" class="navigation-item w-nav-link">Partners</a>
+          <a href="user.html" class="navigation-item w-nav-link">User Profile</a>
+        </nav>
+        <div class="menu-button w-nav-button"><img src="images/menu-icon_1menu-icon.png" width="22" alt="" class="menu-icon"></div>
+      </div>      
+      <a href="index.html" class="button cc-contact-us w-inline-block">
+        <div>Log out</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="motto-wrap">
+    <br><br>
+    <div class="heading-jumbo-small animate-fade-in" id="phrases"><br><br><br>Brewing love in every sip, one cup at a time.</div>
+    <hr class="custom-line">
+    <div class="label cc-light">Mangia Bene! How Can We Serve You Today?</div><br>
+  </div>
+ 
+
+  <main>
+    <section class="products">
+      <div class="product">
+        <img src="assets/espresso.jpg" width="100px" height="auto" alt="Product 1" style="display: block; margin: 0 auto;">
+        <h2>Espresso</h2>
+        <div class="product-details">
+            <p>Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.</p>
+            <p>$2.50</p>
+            <div class="product-buttons">
+                <button class="view-btn" onclick="showDetails('Espresso', 'Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.', '$2.50')">View Details</button>
+                <button class="add-to-cart-btn" onclick="addToCart('Espresso', 2.50)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+      <div class="product">
+        <img src="assets/espresso-macchiato.jpg" width="100px" height="auto" alt="Product 1" style="display: block; margin: 0 auto;">
+        <h2>Espresso Macchiato</h2>
+        <div class="product-details">
+            <p>Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.</p>
+            <p>$2.50</p>
+            <div class="product-buttons">
+                <button class="view-btn" onclick="showDetails('Espresso', 'Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.', '$2.50')">View Details</button>
+                <button class="add-to-cart-btn" onclick="addToCart('Espresso Macchiato', 3.00)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+      <div class="product">
+        <img src="assets/caffe-americano.jpg" width="100px" height="auto" alt="Product 1" style="display: block; margin: 0 auto;">
+        <h2>Americano</h2>
+        <div class="product-details">
+            <p>Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.</p>
+            <p>$2.50</p>
+            <div class="product-buttons">
+                <button class="view-btn" onclick="showDetails('Espresso', 'Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.', '$2.50')">View Details</button>
+                <button class="add-to-cart-btn" onclick="addToCart('Americano', 2.50)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+      <div class="product">
+        <img src="assets/dark-roast-coffee.jpg" width="100px" height="auto" alt="Product 1" style="display: block; margin: 0 auto;">
+        <h2>Dark Roast</h2>
+        <div class="product-details">
+            <p>Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.</p>
+            <p>$3.50</p>
+            <div class="product-buttons">
+                <button class="view-btn" onclick="showDetails('Espresso', 'Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.', '$2.50')">View Details</button>
+                <button class="add-to-cart-btn" onclick="addToCart('Dark Roast', 3.50)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+      </section>
+      <br>
+      <section class="products">
+        <div class="product">
+          <img src="assets/caffe-misto.jpg" width="100px" height="auto" alt="Product 1" style="display: block; margin: 0 auto;">
+          <h2>Misto</h2>
+          <div class="product-details">
+              <p>Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.</p>
+              <p>$4.50</p>
+              <div class="product-buttons">
+                  <button class="view-btn" onclick="showDetails('Espresso', 'Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.', '$2.50')">View Details</button>
+                  <button class="add-to-cart-btn" onclick="addToCart('Misto', 4.50)">Add to Cart</button>
+              </div>
+          </div>
+      </div>
+        <div class="product">
+          <img src="assets/cappuccino.jpg" width="100px" height="auto" alt="Product 1" style="display: block; margin: 0 auto;">
+          <h2>Cappucino</h2>
+          <div class="product-details">
+              <p>Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.</p>
+              <p>$4.00</p>
+              <div class="product-buttons">
+                  <button class="view-btn" onclick="showDetails('Espresso', 'Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.', '$2.50')">View Details</button>
+                  <button class="add-to-cart-btn" onclick="addToCart('Cappucino', 4.00)">Add to Cart</button>
+              </div>
+          </div>
+      </div>
+        <div class="product">
+          <img src="assets/flat-white.jpg" width="100px" height="auto" alt="Product 1" style="display: block; margin: 0 auto;">
+          <h2>Flat White</h2>
+          <div class="product-details">
+              <p>Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.</p>
+              <p>$5.00</p>
+              <div class="product-buttons">
+                  <button class="view-btn" onclick="showDetails('Espresso', 'Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.', '$2.50')">View Details</button>
+                  <button class="add-to-cart-btn" onclick="addToCart('Flat White', 5.00)">Add to Cart</button>
+              </div>
+          </div>
+      </div>
+        <div class="product">
+          <img src="assets/dark-roast-coffee.jpg" width="100px" height="auto" alt="Product 1" style="display: block; margin: 0 auto;">
+          <h2>Classic Brew</h2>
+          <div class="product-details">
+              <p>Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.</p>
+              <p>$3.00</p>
+              <div class="product-buttons">
+                  <button class="view-btn" onclick="showDetails('Espresso', 'Indulge in the intense richness of our Espresso, a carefully crafted coffee with a bold and robust flavor profile. Savor the concentrated essence of finely ground coffee beans, expertly brewed to perfection, delivering a delightful and invigorating experience in every sip.', '$2.50')">View Details</button>
+                  <button class="add-to-cart-btn" onclick="addToCart('Classic Brew', 3.00)">Add to Cart</button>
+              </div>
+          </div>
+      </div>
+      </section>
+
+      <div id="cart" style="display: none;">
+        <div id="receipt">
+          <!-- Receipt content will be displayed here -->
+        </div>
+      </div>
+
+      <button onclick="showPaymentDetails()" class="payment-button">Show Payment Details</button>
+
+      <div id="emptyCartMessage" class="empty-cart-message">
+        <p>Cart is empty</p>
+      </div>
+
+<div class="payment-details" style="display: none;">
+  <h2>Payment Details</h2>
+  <label for="payment-method">Select Payment Method:</label>
+  <select id="payment-method" class="payment-method-select">
+    <option value="">--Select Payment Method--</option>
+    <option value="credit-card">Credit Card</option>
+    <option value="bank-transfer">Bank Transfer</option>
+  </select>
+
+  <div id="credit-card-details" class="payment-details-form" style="display: none;">
+
+    <h3>Credit Card Details</h3>
+    <input type="text" class="input-field" placeholder="Card Number"><br><br>
+    <input type="text" class="input-field" placeholder="Expiration Date"><br><br>
+    <input type="text" class="input-field" placeholder="CVV"><br><br>
+    <button class="payment-button" onclick="processPayment('Credit Card')">Pay Now</button>
+  </div>
+
+  <div id="bank-transfer-details" class="payment-details-form" style="display: none;">
+
+    <h3>Bank Transfer Details</h3>
+    <input type="text" class="input-field" placeholder="Bank Account Number"><br><br>
+    <input type="text" class="input-field" placeholder="Routing Number"><br><br>
+    <button class="payment-button" onclick="processPayment('Bank Transfer')">Pay Now</button>
+  </div>
+</div>
+
+  </main>
+ 
+  <footer class="site-footer">
+    <p>Contact us: email@gnocchi.com | Phone: +63 992 770 3998</p>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+ 
+      var currentPageUrl = window.location.href;
+
+      if (currentPageUrl.indexOf("products.html") !== -1) {
+       
+        $('#productsLink').addClass('active');
+      }
+    });
+  </script>
+
+  <script>
+ 
+ let cart = [];
+  updateCart();
+
+  function addToCart(itemName, price) {
+  let existingItem = cart.find(item => item.itemName === itemName);
+
+  if (existingItem) {
+    existingItem.quantity++;
+  } else {
+    cart.push({ itemName, price, quantity: 1 });
+  }
+  updateCart();
+}
+
+function removeFromCart(itemName) {
+    let index = cart.findIndex(item => item.itemName === itemName);
+
+    if (index !== -1) {
+      if (cart[index].quantity > 1) {
+        cart[index].quantity--;
+      } else {
+        cart.splice(index, 1); 
+      }
+    }
+
+    updateCart();
+  }
+
+  function removeItem(itemName) {
+    let index = cart.findIndex(item => item.itemName === itemName);
+
+    if (index !== -1) {
+      cart.splice(index, 1); 
+      updateCart();
+    }
+  }
+
+  function updateCart() {
+  const cartElement = document.getElementById("cart");
+  const emptyCartMessage = document.getElementById("emptyCartMessage");
+  let cartContent = `<h2>Cart</h2>`;
+  let total = 0;
+
+  if (cart.length === 0) {
+    emptyCartMessage.style.display = "block"; // Display the message
+    cartElement.style.display = "none"; // Hide the cart section
+  } else {
+    emptyCartMessage.style.display = "none"; // Hide the message
+
+    let uniqueItems = {};
+
+    cart.forEach((item) => {
+      if (!uniqueItems[item.itemName]) {
+        uniqueItems[item.itemName] = { ...item };
+      } else {
+        uniqueItems[item.itemName].quantity += item.quantity;
+      }
+    });
+
+    for (const itemName in uniqueItems) {
+      const item = uniqueItems[itemName];
+      cartContent += `<p><span>${item.itemName} (${item.quantity}): $${item.price * item.quantity}</span>`;
+      cartContent += `<button onclick="removeFromCart('${item.itemName}')">Remove</button></p>`;
+      total += item.price * item.quantity;
+    }
+
+    cartContent += `<p><strong>Total: $${total}</strong></p>`;
+    cartElement.style.display = "block"; // Display the cart section
+  }
+
+  cartElement.innerHTML = cartContent;
+
+  // Add clearfix to each cart item for proper alignment
+  const cartItems = cartElement.querySelectorAll("p");
+  cartItems.forEach((item) => {
+    item.classList.add("clearfix");
+  });
+
+  // Show the cart when items are added or display "Cart is empty" message
+  if (cart.length > 0) {
+    cartElement.style.display = "block";
+  } else {
+    cartElement.style.display = "none";
+    emptyCartMessage.style.display = "block";
+  }
+}
+
+
+function processPayment(paymentType) {
+  const paymentMethod = document.getElementById("payment-method").value;
+  const paymentDetails = document.querySelector(".payment-details");
+
+  if (paymentMethod === "credit-card" || paymentMethod === "bank-transfer") {
+    alert(`Processing ${paymentType} payment...`);
+
+    setTimeout(() => {
+      alert("Payment successful! Your order is confirmed.");
+      resetCartAndPayment();
+      if (confirm("Do you want to view the receipt?")) {
+        generateReceipt();
+      }
+      hidePaymentDetails(); // Hide payment details after successful payment
+    }, 2000);
+
+    // Show payment details when payment is processed
+    paymentDetails.style.display = "block";
+  }
+}
+
+function resetCartAndPayment() {
+  cart = [];
+  updateCart();
+
+  const paymentMethod = document.getElementById("payment-method");
+  paymentMethod.selectedIndex = 0;
+
+  const creditCardDetails = document.getElementById("credit-card-details");
+  const bankTransferDetails = document.getElementById("bank-transfer-details");
+  creditCardDetails.style.display = "none";
+  bankTransferDetails.style.display = "none";
+}
+
+    document.getElementById("payment-method").addEventListener("change", function() {
+      const selectedMethod = this.value;
+      const creditCardDetails = document.getElementById("credit-card-details");
+      const bankTransferDetails = document.getElementById("bank-transfer-details");
+
+      if (selectedMethod === "credit-card") {
+        creditCardDetails.style.display = "block";
+        bankTransferDetails.style.display = "none";
+      } else if (selectedMethod === "bank-transfer") {
+        bankTransferDetails.style.display = "block";
+        creditCardDetails.style.display = "none";
+      }
+    });
+
+  function generateReceipt() {
+      const receiptContent = getReceiptContent(); 
+
+      const receiptDiv = document.getElementById("receipt");
+      if (receiptDiv) {
+        receiptDiv.innerHTML = receiptContent;
+      }
+    }
+
+    function getReceiptContent() {
+      let receiptContent = '<h2>Receipt</h2>';
+
+      cart.forEach((item) => {
+        receiptContent += `<p>${item.itemName} (${item.quantity}): $${item.price * item.quantity}</p>`;
+      });
+
+      let total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+      receiptContent += `<p><strong>Total: $${total.toFixed(2)}</strong></p>`;
+
+      return receiptContent;
+    }
+
+  function showPaymentDetails() {
+  const paymentDetails = document.querySelector(".payment-details");
+
+  // Show payment details
+  paymentDetails.style.display = "block";
+}
+
+function hidePaymentDetails() {
+  const paymentDetails = document.querySelector(".payment-details");
+
+  // Hide payment details
+  paymentDetails.style.display = "none";
+}
+  </script>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>

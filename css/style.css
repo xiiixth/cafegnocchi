@@ -429,12 +429,6 @@ footer p {
   margin: 0;
 }
 
-@media screen and (max-width: 768px) {
-  .products {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  }
-}
-
 .swiper-container {
   width: 100%;
   height: 400px; 
@@ -540,15 +534,6 @@ td {
   text-align: center; 
   width: 25%; 
   box-sizing: border-box; 
-}
-
-@media screen and (max-width: 767px) {
-  td {
-    display: block; 
-    width: 100%; 
-    text-align: left; 
-    padding: 10px; 
-  }
 }
 
 .rounded-image {
